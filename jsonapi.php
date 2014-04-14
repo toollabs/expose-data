@@ -56,6 +56,15 @@ switch ($action) {
 		}
 		$res['sha1lookup'] = sha1lookup( $sha1 );
 		break;
+	case 'uploadcount':
+		include_once ( 'php/uploadcount.php' );
+		$user = '';
+		
+		if ( array_key_exists('user', $_REQUEST) ) {
+			$user = $_REQUEST['user'];
+		}
+		$res['uploadcount'] = uploadcount( $user );
+		break;
 	default:
 		header('HTTP/1.0 501 Not implemented');
 		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, .';
