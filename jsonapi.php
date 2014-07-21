@@ -36,7 +36,7 @@ if ( isset( $origin ) ) {
 		header('Access-Control-Allow-Methods: GET');
 	} else {
 		header('HTTP/1.0 403 Forbidden');
-		echo '{"error":"Accesing this tool from the origin you are attempting to connet from is not allowed."}';
+		echo '{"error":"Accessing this tool from the origin you are attempting to connect from is not allowed."}';
 		exit;
 	}
 }
