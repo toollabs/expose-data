@@ -48,13 +48,28 @@ if ( array_key_exists('action', $_REQUEST) ) {
 }
 switch ($action) {
 	case 'sha1lookup':
+		// Files by SHA1
 		include_once ( 'php/sha1lookup.php' );
 		$sha1 = '';
+		$showDeleted = false;
 		
 		if ( array_key_exists('sha1', $_REQUEST) ) {
 			$sha1 = $_REQUEST['sha1'];
 		}
-		$res['sha1lookup'] = sha1lookup( $sha1 );
+		if ( array_key_exists('showdeleted', $_REQUEST) ) {
+			$showDeleted = true;
+		}
+		$res['sha1lookup'] = sha1lookup( $sha1, $showDeleted );
+		break;
+	case 'getsha1':
+		// SHA1 from file name
+		include_once ( 'php/getsha1.php' );
+		$filename = '';
+		
+		if ( array_key_exists('filename', $_REQUEST) ) {
+			$filename = $_REQUEST['filename'];
+		}
+		$res['getsha1'] = getsha1( $filename );
 		break;
 	case 'uploadcount':
 		include_once ( 'php/uploadcount.php' );
@@ -65,9 +80,14 @@ switch ($action) {
 		}
 		$res['uploadcount'] = uploadcount( $user );
 		break;
+	case 'useruploads':
+		include_once ( 'php/useruploads.php' );
+
+		$res['useruploads'] = useruploads( $_REQUEST['user'], $_REQUEST['dir'], $_REQUEST['start'], $_REQUEST['limit'] );
+		break;
 	default:
 		header('HTTP/1.0 501 Not implemented');
-		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, .';
+		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, uploadcount, useruploads.';
 		break;
 }
 if (!isset( $res )) {

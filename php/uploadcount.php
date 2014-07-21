@@ -4,9 +4,9 @@ include_once ( 'shared/common.php' ) ;
 function uploadcount( $username ) {
 	$res = -1;
 
-	// INPUT VALIDATION
 	$db = openDB('commons', 'commons');
 
+	// INPUT VALIDATION
 	if ( strlen( $username ) > 255 || preg_match( '/(SELECT.+)|(DROP.+)|(ALTER.+)|(UNION.+)|(INSERT.+)|(\{|\}|;|%)/', $username ) ) {
 		return 'Invalid user name supplied.';
 	}
