@@ -92,7 +92,7 @@ switch ($action) {
 		break;
 	default:
 		header('HTTP/1.0 501 Not implemented');
-		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, uploadcount, useruploads.';
+		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, getsha1, uploadcount, useruploads, copyuploadsdomains.';
 		break;
 }
 if (!isset( $res )) {

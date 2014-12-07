@@ -7,6 +7,7 @@ function copyuploadsdomains() {
 	$initializeSettingsURL = 'https://noc.wikimedia.org/conf/InitialiseSettings.php.txt';
 	$jsonFileName = 'copyuploadsdomains.json';
 	$key = 'expose-data-copyuploadsdomains';
+	$keyTTL = 60 * 60;
 	$now = time();
 	$redis = new Redis();
 	$redis->connect( 'tools-redis', 6379 );
@@ -15,7 +16,7 @@ function copyuploadsdomains() {
 		if ( is_numeric( $lastRun ) ) {
 			$lastRun = (int) $lastRun;
 			$diff = $now - $lastRun;
-			if ( $diff < 1 * 24 * 60 * 60 ) {
+			if ( $diff < $keyTTL ) {
 				$redis->close();
 				return copyuploadsdomains_cached( $jsonFileName );
 			}
@@ -23,7 +24,7 @@ function copyuploadsdomains() {
 	}
 
 	// Expires in one day
-	$redis->setex( $key, 1 * 24 * 60 * 60, $now );
+	$redis->setex( $key, $keyTTL, $now );
 	$redis->close();
 
 	$wgConf = array(
