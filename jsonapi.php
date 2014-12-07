@@ -85,6 +85,11 @@ switch ($action) {
 
 		$res['useruploads'] = useruploads( $_REQUEST['user'], $_REQUEST['dir'], $_REQUEST['start'], $_REQUEST['limit'] );
 		break;
+	case 'copyuploadsdomains':
+		include_once ( 'php/copyuploadsdomains.php' );
+
+		$res['copyuploadsdomains'] = copyuploadsdomains();
+		break;
 	default:
 		header('HTTP/1.0 501 Not implemented');
 		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, uploadcount, useruploads.';
