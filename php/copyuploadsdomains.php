@@ -38,7 +38,10 @@ function copyuploadsdomains() {
 	// Evil eval
 	eval( $InitialiseSettings );
 	// Now, we should have a property called "wgCopyUploadsDomains"
-	$wgCopyUploadsDomains = $wgConf->settings['wgCopyUploadsDomains']['+commonswiki'];
+	$wgCopyUploadsDomains = array_merge(
+		$wgConf->settings['wgCopyUploadsDomains']['default'],
+		$wgConf->settings['wgCopyUploadsDomains']['+commonswiki']
+	);
 	$fp = fopen( $jsonFileName, 'w' );
 	fwrite( $fp, json_encode( $wgCopyUploadsDomains ) );
 	fclose( $fp );
