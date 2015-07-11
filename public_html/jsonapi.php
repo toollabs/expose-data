@@ -2,7 +2,7 @@
 $tool_user_name = 'expose-data';
 
 include_once ( 'shared/common.php' ) ;
-error_reporting( E_ALL & ~E_NOTICE ); # Don't clutter the directory with unhelpful stuff
+#error_reporting( E_ALL & ~E_NOTICE ); # Don't clutter the directory with unhelpful stuff
 
 $prot = getProtocol();
 if ( array_key_exists( 'HTTP_ORIGIN', $_SERVER ) ) {
@@ -90,9 +90,14 @@ switch ($action) {
 
 		$res['copyuploadsdomains'] = copyuploadsdomains();
 		break;
+	case 'autopatrolled_candidates':
+		include_once( 'php/autopatrolled_candidates.php' );
+
+		$res['autopatrolled_candidates'] = autopatrolled_candidates();
+		break;
 	default:
 		header('HTTP/1.0 501 Not implemented');
-		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, getsha1, uploadcount, useruploads, copyuploadsdomains.';
+		$res['error'] = 'Unknown action "' . $action . '". Allowed are sha1lookup, getsha1, uploadcount, useruploads, copyuploadsdomains, autopatrolled_candidates.';
 		break;
 }
 if (!isset( $res )) {

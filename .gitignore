@@ -1,3 +1,14 @@
-tmp/*
-shared/*
+.*
+!/.gitignore
+public_html/tmp/*
+public_html/shared/*
 copyuploadsdomains.json
+replica.my.cnf
+backup
+public_html_old
+*.err
+*.out
+*.log
+autopatrolled_candidates.tsv
+autopatrolled_candidates.json
+

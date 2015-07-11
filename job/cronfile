@@ -1,0 +1,4 @@
+PATH=/usr/local/bin:/usr/bin:/bin:$PATH
+MAILTO=rillke@wikipedia.de
+7 3 * * * jsub -N autopatrolled_candidates -once ~/sql_autopatrolled.sh
+
