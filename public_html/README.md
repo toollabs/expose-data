@@ -1,4 +1,6 @@
 expose-data
 ===========
 
-Tool labs. Exposes data not exposed by MediaWiki API. Only fast queries are permitted. 
+Expose-data exposes data not available through the usualy MediaWiki API. Only fast queries are permitted. 
+
+On tool labs: https://tools.wmflabs.org/expose-data/
