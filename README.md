@@ -1,6 +1,6 @@
 expose-data
 ===========
 
-Expose-data exposes data not available through the usualy MediaWiki API. Only fast queries are permitted. 
+Expose-data exposes data not available through the usual MediaWiki API. Only fast queries are permitted. 
 
 On tool labs: https://tools.wmflabs.org/expose-data/
