@@ -2,7 +2,7 @@
 $tool_user_name = 'expose-data';
 
 include_once ( 'shared/common.php' ) ;
-#error_reporting( E_ALL & ~E_NOTICE ); # Don't clutter the directory with unhelpful stuff
+error_reporting( E_ALL & ~E_NOTICE ); # Don't clutter the directory with unhelpful stuff
 
 $prot = getProtocol();
 if ( array_key_exists( 'HTTP_ORIGIN', $_SERVER ) ) {
