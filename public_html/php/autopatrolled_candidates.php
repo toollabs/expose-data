@@ -1,9 +1,16 @@
 <?php
 include_once ( 'shared/common.php' ) ;
 
-function autopatrolled_candidates() {
-	$tsvFileName = '../www/static/autopatrolled_candidates.tsv';
-	$jsonFileName = '../www/static/autopatrolled_candidates.json';
+function autopatrolled_candidates( $wiki ) {
+	$knownWikis = array( 'species' );
+
+	if ( in_array( $wiki, $knownWikis, true ) ) {
+		$wiki = '_' . $wiki;
+	} else {
+		$wiki = '';
+	}
+	$tsvFileName = "../www/static/autopatrolled_candidates$wiki.tsv";
+	$jsonFileName = "../www/static/autopatrolled_candidates$wiki.json";
 	$tsvLastWritten = filemtime( $tsvFileName );
 	$jsonLastWritten = filemtime( $jsonFileName );
 
@@ -49,5 +56,4 @@ function parseTSV( $tsvFileName ) {
 	}
 	return $result;
 }
-
 

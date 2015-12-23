@@ -11,4 +11,5 @@ public_html_old
 *.log
 autopatrolled_candidates.tsv
 autopatrolled_candidates.json
+/www
 

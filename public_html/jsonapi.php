@@ -92,8 +92,9 @@ switch ($action) {
 		break;
 	case 'autopatrolled_candidates':
 		include_once( 'php/autopatrolled_candidates.php' );
+		$wiki = isset( $_REQUEST['wiki'] ) ? $_REQUEST['wiki'] : '';
 
-		$res['autopatrolled_candidates'] = autopatrolled_candidates();
+		$res['autopatrolled_candidates'] = autopatrolled_candidates( $wiki );
 		break;
 	default:
 		header('HTTP/1.0 501 Not implemented');
