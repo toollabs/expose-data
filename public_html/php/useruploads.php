@@ -38,7 +38,7 @@ function useruploads( $username, $dir, $start, $limit, $continue ) {
 		return 'Invalid limit supplied.';
 	}
 
-	$sql = "SELECT count(*) AS count FROM image WHERE img_user_text='$username' ORDER BY img_timestamp DESC;";
+	$sql = "SELECT count(*) AS count FROM image INNER JOIN actor ON img_actor = actor_id WHERE actor_name='$username' ORDER BY img_timestamp DESC;";
 
 	if(!$result = $db->query($sql)) {
 		return 'There was an error running the query.'; // [' . $db->error . ']
