@@ -1,1 +1,5 @@
+# This file is used by toollabs infrastructure.
+# Please do not edit manually at this time.
+backend: gridengine
+version: 3
 web: lighttpd
