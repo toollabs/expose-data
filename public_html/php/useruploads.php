@@ -1,7 +1,7 @@
 <?php
 include_once ( 'shared/common.php' ) ;
 
-function useruploads( $username, $dir, $start, $limit, $continue ) {
+function useruploads( $username, $dir = NULL, $start = NULL, $limit = NULL, $continue = NULL ) {
 	$res = Array();
 
 	$db = openDB('commons', 'commons');
@@ -50,4 +50,4 @@ function useruploads( $username, $dir, $start, $limit, $continue ) {
 
 	return $res;
 }
-?>
+
