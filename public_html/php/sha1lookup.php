@@ -12,9 +12,11 @@ function sha1lookup( $sha1, $deleted ) {
 		return 'Invalid SHA1 supplied. Must be 40 HEX chars (20 Bytes).';
 	}
 	
-	$sha1 = wfBaseConvert( $sha1, 16, 36, 32 );
+	$sha1Pad31 = wfBaseConvert( $sha1, 16, 36, 31 );
+	$sha1Pad32 = wfBaseConvert( $sha1, 16, 36, 32 );
+	$res['query-sha1'] = $sha1Pad31;
 	
-	$sql = "SELECT oi_name, oi_archive_name, oi_size, oi_sha1, oi_timestamp FROM oldimage WHERE oi_sha1='" . $sha1 . "';";
+	$sql = "SELECT oi_name, oi_archive_name, oi_size, oi_sha1, oi_timestamp FROM oldimage WHERE oi_sha1='" . $sha1Pad31 . "';";
 	
 	if(!$result = $db->query($sql)) {
 		return 'There was an error running the query.'; // [' . $db->error . ']
@@ -24,6 +26,8 @@ function sha1lookup( $sha1, $deleted ) {
 	while($row = $result->fetch_assoc()){
 		$res['oldimage'][] = $row;
 	}
+
+	$res['query-oldimage'] = $sql;
 
 	// Something sophisticated quota logic to prevent abuse
 	if ( $deleted ) {
@@ -66,7 +70,7 @@ function sha1lookup( $sha1, $deleted ) {
 		$res['quota-rel'] = $quota;
 		$res['quota-abs'] = $quotaAbs;
 
-		$sql = "SELECT fa_name, fa_size, fa_sha1, fa_timestamp FROM filearchive WHERE fa_sha1='" . $sha1 . "';";
+		$sql = "SELECT fa_name, fa_size, fa_sha1, fa_timestamp FROM filearchive WHERE fa_sha1 IN ('$sha1Pad31', '$sha1Pad32');";
 		
 		if(!$result = $db->query($sql)) {
 			return 'There was an error running the query.'; // [' . $db->error . ']
@@ -76,6 +80,7 @@ function sha1lookup( $sha1, $deleted ) {
 		while($row = $result->fetch_assoc()){
 			$res['filearchive'][] = $row;
 		}
+		$res['query-filearchive'] = $sql;
 
 		$redis->connect( 'tools-redis', 6379 );
 		if ( $redis->exists( $key ) ) {
@@ -90,4 +95,4 @@ function sha1lookup( $sha1, $deleted ) {
 	
 	return $res;
 }
-?>
+
