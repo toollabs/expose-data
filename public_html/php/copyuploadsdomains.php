@@ -35,12 +35,14 @@ function copyuploadsdomains() {
 	$InitialiseSettings = file_get_contents( $initializeSettingsURL );
 	// Remove php-mode indicator
 	$InitialiseSettings = str_replace( '<?php', '', $InitialiseSettings );
-	// Evil eval
+	// Evil eval the document (we trust the WMF not to publish evil code
 	eval( $InitialiseSettings );
+	// Call a function to return the desired settings
+	$wgConf = wmfGetVariantSettings();
 	// Now, we should have a property called "wgCopyUploadsDomains"
 	$wgCopyUploadsDomains = array_merge(
-		$wgConf->settings['wgCopyUploadsDomains']['default'],
-		$wgConf->settings['wgCopyUploadsDomains']['+commonswiki']
+		$wgConf['wgCopyUploadsDomains']['default'],
+		$wgConf['wgCopyUploadsDomains']['+commonswiki']
 	);
 	$fp = fopen( $jsonFileName, 'w' );
 	fwrite( $fp, json_encode( $wgCopyUploadsDomains ) );
